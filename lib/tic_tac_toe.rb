@@ -1,9 +1,6 @@
-
-
 def position_taken?(board, index)
   !(board[index].nil? || board[index] == " ")
 end
-
 
 WIN_COMBINATIONS = [
   [0, 1, 2],
@@ -38,6 +35,7 @@ def draw?(board)
   if full?(board) == true && won?(board) == false
     return true
   end
+  return false 
 end
 
 def over?(board)
@@ -53,9 +51,6 @@ end
 def position_taken?(board, index)
   !(board[index].nil? || board[index] == " ")
 end
-
-
-
 
 def display_board(board)
   puts " #{board[0]} | #{board[1]} | #{board[2]} "
@@ -107,21 +102,22 @@ def turn(board)
   end
 end
 
-
-
-
 def play(board)
-  counter = turn_count(board)
-  while counter < 9 
+  while !over?(board)
     turn(board)
-    if won?(board) != false
-      puts "Congratulations #{winner(board)}!"
-      return
-    elsif full?(board) == true
-      puts "Cat's Game!"
-      return
-    end 
-    counter = turn_count(board)
+  end
+
+  if won?(board)
+    if winner(board) == "X"
+      puts "Congratulations X!"
+    else
+      puts "Congratulations O!"
+    end
+  end
+  
+  if draw?(board)
+    puts "Cat's Game!"
   end
 end 
+
 
